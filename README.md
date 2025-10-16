@@ -20,7 +20,9 @@ Each week includes circuit designs, simulations, and Arduino-based projects.
 
 ### ⚙️ Tools & Software
 - Arduino IDE
-- Proteus / Tinkercad / Cirkit Designer
+  https://www.arduino.cc/en/software/ 
+- Tinkercad
+  https://www.tinkercad.com/
 
 ---
 
