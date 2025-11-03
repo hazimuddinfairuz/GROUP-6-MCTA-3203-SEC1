@@ -23,6 +23,8 @@ Each week includes circuit designs, simulations, and Arduino-based projects.
   https://www.arduino.cc/en/software/ 
 - Tinkercad
   https://www.tinkercad.com/
+- Wokwi Simulation
+  https://wokwi.com/ 
 
 ---
 
