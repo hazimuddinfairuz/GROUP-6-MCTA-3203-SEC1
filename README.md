@@ -11,7 +11,7 @@ Each week includes circuit designs, simulations, and Arduino-based projects.
   - [Week 2 - 7-Segment Display](./Week%202)
   - [Week 3 - Servomotor w Potentiometer](./Week%203)
   - [Week 4 - Serial Interfacing With Microcontroller: Sensors And Actuators](./Week%204)
-  - [Week 5 -  L298P MOTOR DRIVER SHIELD WITH GPIO](./Week%205)
+  - [Week 5 -  L298P Motor Driver Shield with GPIO](./Week%205)
   - [Week 6 - ](./Week%206)
   - [Week 7 - ](./Week%207)
   - [Week 8 - ](./Week%208)
