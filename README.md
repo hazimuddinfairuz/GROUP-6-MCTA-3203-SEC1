@@ -20,7 +20,9 @@ Each week includes circuit designs, simulations, and Arduino-based projects.
 
 ### ⚙️ Tools & Software
 - Arduino IDE
-  https://www.arduino.cc/en/software/ 
+  https://www.arduino.cc/en/software/
+- OpenPLC
+  https://autonomylogic.com/ 
 - Tinkercad
   https://www.tinkercad.com/
 - Wokwi Simulation
