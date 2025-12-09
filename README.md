@@ -28,7 +28,6 @@ Each week includes circuit designs, simulations, and Arduino-based projects.
 - Wokwi Simulation
   https://wokwi.com/
 - Serial Bluetooth Terminal
-  https://play.google.com/store/apps/details?id=de.kai_morich.serial_bluetooth_terminal&hl=en
 
 ---
 
