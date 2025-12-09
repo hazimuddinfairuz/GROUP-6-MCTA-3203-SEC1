@@ -14,7 +14,7 @@ Each week includes circuit designs, simulations, and Arduino-based projects.
   - [Week 5 -  L298P Motor Driver Shield with GPIO](./Week%205)
   - [Week 6 -  Smart Surveillance System Using ESP32-CAM](./Week%206)
   - [Week 7 - Plc Interfacing with Microcontroller & Pc Over Ethernet/Ip](./Week%207)
-  - [Week 8 - ](./Week%208)
+  - [Week 8 - Bluetooth Data Interfacing](./Week%208)
 
 ---
 
@@ -26,7 +26,9 @@ Each week includes circuit designs, simulations, and Arduino-based projects.
 - Tinkercad
   https://www.tinkercad.com/
 - Wokwi Simulation
-  https://wokwi.com/ 
+  https://wokwi.com/
+- Serial Bluetooth Terminal
+  https://play.google.com/store/apps/details?id=de.kai_morich.serial_bluetooth_terminal&hl=en
 
 ---
 
