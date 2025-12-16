@@ -2,7 +2,7 @@
 
 ### MCTA2313 Lab Projects (Week 2–8)
 
-This repository contains all lab projects and exercises completed between Week 2 and Week 8.  
+This repository contains all lab projects and exercises completed between Week 2 and Week 9.  
 Each week includes circuit designs, simulations, and Arduino-based projects.
 
 ---
@@ -15,18 +15,23 @@ Each week includes circuit designs, simulations, and Arduino-based projects.
   - [Week 6 -  Smart Surveillance System Using ESP32-CAM](./Week%206)
   - [Week 7 - Plc Interfacing with Microcontroller & Pc Over Ethernet/Ip](./Week%207)
   - [Week 8 - Bluetooth Data Interfacing](./Week%208)
+  - [Week 9 - Color Detec􀆟on and Analysis](./Week%209)
 
 ---
 
 ### ⚙️ Tools & Software
+
 - Arduino IDE
   https://www.arduino.cc/en/software/
 - OpenPLC
-  https://autonomylogic.com/ 
+  https://autonomylogic.com/
+  
 - Tinkercad
   https://www.tinkercad.com/
 - Wokwi Simulation
   https://wokwi.com/
+- Cirkit Designer IDE
+  https://app.cirkitdesigner.com/
 - Serial Bluetooth Terminal
 
 ---
