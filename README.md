@@ -16,6 +16,7 @@ Each week includes circuit designs, simulations, and Arduino-based projects.
   - [Week 7 - Plc Interfacing with Microcontroller & Pc Over Ethernet/Ip](./Week%207)
   - [Week 8 - Bluetooth Data Interfacing](./Week%208)
   - [Week 9 - Color Detec􀆟on and Analysis](./Week%209)
+  - [Mini Project Report](./Mini%20Project%20Report)
 
 ---
 
@@ -25,6 +26,8 @@ Each week includes circuit designs, simulations, and Arduino-based projects.
   https://www.arduino.cc/en/software/
 - OpenPLC
   https://autonomylogic.com/
+- PyCharm
+  https://www.jetbrains.com/pycharm/
   
 - Tinkercad
   https://www.tinkercad.com/
