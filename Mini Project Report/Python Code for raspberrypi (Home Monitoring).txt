@@ -1,0 +1,128 @@
+full:
+
+import serial
+import requests
+from gpiozero import RGBLED
+from time import sleep, time
+import sys
+
+# === CONFIGURATION ===
+BT_PORT = '/dev/rfcomm0'
+BAUD = 115200
+
+# === TELEGRAM CONFIGURATION ===
+BOT_TOKEN = "8250634361:AAFJwArNe6ND5x-wwzWKNEwNCF4gLyW69cY"
+CHAT_ID = "5526623958"  # <--- Confirm this is your ID
+
+# === RGB LED SETUP ===
+led = RGBLED(red=18, green=23, blue=24)
+COLOR_GREEN  = (0, 1, 0)
+COLOR_RED    = (1, 0, 0)
+COLOR_PURPLE = (1, 0, 1)
+
+# === STATE TRACKING ===
+# This timer prevents spam only for the CAMERA (Purple) mode.
+# The Button (Red/Green) will ALWAYS send messages instantly.
+last_telegram_time = 0
+telegram_cooldown = 3 
+
+def send_telegram(message, force=False):
+    """
+    Sends Telegram message. 
+    force=True means 'Send this IMMEDIATELY, ignore cooldown'
+    """
+    global last_telegram_time
+    
+    # If it's not a forced message, check the spam timer
+    if not force:
+        if time() - last_telegram_time < telegram_cooldown:
+            return
+
+    print(f"📤 Sending Telegram: {message}")
+    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
+    data = {"chat_id": CHAT_ID, "text": message}
+    
+    try:
+        requests.post(url, data=data, timeout=5)
+        last_telegram_time = time()
+    except Exception as e:
+        print(f"⚠️ Telegram Failed: {e}")
+
+# === MAIN PROGRAM ===
+print("🚀 System Starting (Repeatable Mode)...")
+
+try:
+    ser = serial.Serial(BT_PORT, BAUD, timeout=1)
+    print(f"✅ Connected to {BT_PORT}")
+
+    # Start Clean
+    current_state = "idle"
+    led.color = COLOR_GREEN
+    send_telegram("✅ System Online: Ready for User", force=True)
+
+    while True:
+        if ser.in_waiting > 0:
+            try:
+                # Read and clean data
+                raw_line = ser.readline().decode('utf-8', errors='ignore')
+                clean_line = raw_line.strip().upper()
+                
+                if not clean_line:
+                    continue
+
+                # === LOGIC CYCLE ===
+
+                # 1. START SEARCH (Button Pressed)
+                if "BUTTON_ON" in clean_line:
+                    # If we are not already searching, START NOW.
+                    # We use 'force=True' so this Alert ALWAYS sends.
+                    if current_state == "idle":
+                        print("💡 Start Search Cycle")
+                        current_state = "searching"
+                        led.color = COLOR_RED
+                        send_telegram("🚨 ALERT: User pressed FIND WALLET button!\n🔴 Status: USER is finding his wallet", force=True)
+
+                # 2. FOUND IT (Camera sees object)
+                elif "HUSKY_ON" in clean_line:
+                    # Only activate if we are currently searching
+                    if current_state == "searching":
+                        print("👀 Object Found")
+                        current_state = "found"
+                        led.color = COLOR_PURPLE
+                        # We use the timer here to avoid flickering spam
+                        send_telegram("🟣 Status: USER is close to his wallet")
+
+                # 3. LOST IT (Camera lost object)
+                elif "HUSKY_OFF" in clean_line:
+                    # If we found it but moved away, go back to Red
+                    if current_state == "found":
+                        print("🔄 Lost Object - Still Searching")
+                        current_state = "searching"
+                        led.color = COLOR_RED
+                        # No message here (keeps chat clean)
+
+                # 4. FINISH / RESET (Button Released)
+                elif "BUTTON_OFF" in clean_line:
+                    # Triggers if the user was doing ANYTHING (Searching or Found)
+                    if current_state != "idle":
+                        print("✅ Cycle Complete - Resetting System")
+                        current_state = "idle"
+                        led.color = COLOR_GREEN
+                        # force=True ensures you ALWAYS get the success message
+                        send_telegram("✅ Status: USER has successfully found his wallet", force=True)
+                
+            except Exception as e:
+                print(f"Error: {e}")
+
+        sleep(0.05)
+
+except serial.SerialException as e:
+    print(f"❌ Serial Error: {e}")
+
+except KeyboardInterrupt:
+    print("\n🛑 Stopped.")
+
+finally:
+    led.close()
+    if 'ser' in locals():
+        ser.close()
