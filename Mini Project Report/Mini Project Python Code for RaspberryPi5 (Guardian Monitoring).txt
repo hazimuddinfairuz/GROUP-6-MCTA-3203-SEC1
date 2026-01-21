@@ -1,5 +1,4 @@
-full:
-
+1. nano /home/fazimslogics/Assistive glove with guardian monitoring.py :
 import serial
 import requests
 from gpiozero import RGBLED
@@ -126,3 +125,46 @@ finally:
     led.close()
     if 'ser' in locals():
         ser.close()
+
+
+
+
+2. nano /etc/systemd/system/bracelet.service :
+[Unit]
+Description=Smart Bracelet System (LED + Monitor)
+# Wait for Bluetooth hardware to be ready
+After=bluetooth.target network.target
+
+[Service]
+# === 1. PRE-START: BLUETOOTH BINDING ===
+# Release any old connections to prevent "Address in use" errors
+ExecStartPre=-/usr/bin/rfcomm release 0
+# Bind YOUR Bracelet MAC to port 0
+ExecStartPre=/usr/bin/rfcomm bind 0 FC:E8:C0:E1:1D:D6
+# Wait 2 seconds for the link to stabilize
+ExecStartPre=/usr/bin/sleep 2
+
+# === 2. START: RUN THE PYTHON LOGIC ===
+ExecStart=/usr/bin/python3 -u "/home/fazimslogics/Assistive glove with guardian monitoring.py"
+
+# === 3. SETTINGS ===
+WorkingDirectory=/home/fazimslogics
+StandardOutput=inherit
+StandardError=inherit
+
+# === 4. AUTO-RESTART POLICY ===
+# If the ESP32 turns off, the script crashes. This restarts it infinitely.
+Restart=always
+RestartSec=5
+
+# Run as root to allow Bluetooth/GPIO access
+User=root
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+3. sudo systemctl status bracelet.service
+4. sudo journalctl -u bracelet.service -f
